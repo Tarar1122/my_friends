@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                             height: 60.0,
                             width: 60.0,
                           ),
-                          Text(
+                          const Text(
                             'Gallery',
                             style: TextStyle(fontSize: 18.0),
                           ),
@@ -287,7 +287,7 @@ class _HomePageState extends State<HomePage> {
                             height: 60.0,
                             width: 60.0,
                           ),
-                          Text(
+                          const Text(
                             'Camera',
                             style: TextStyle(fontSize: 18.0),
                           ),
