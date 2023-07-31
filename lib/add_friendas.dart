@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_friends/about.dart';
 import 'package:my_friends/add_frind2.dart';
 import 'package:my_friends/contact.dart';
+import 'package:my_friends/models/friends_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -133,11 +135,13 @@ class _HomePageState extends State<HomePage> {
                     child: GestureDetector(
                       onTap: () {
                         if (_formkey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('apka freind save ho gya ha'),
-                            ),
-                          );
+                          saveFriendToDB().then((value) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('apka freind save ho gya ha'),
+                              ),
+                            );
+                          });
                         }
                       },
                       child: const Text(
@@ -312,5 +316,24 @@ class _HomePageState extends State<HomePage> {
     } else {
       return;
     }
+  }
+
+  Future saveFriendToDB() async {
+    var friendsBox = Hive.box<FriendsModel>('friends');
+    FriendsModel friendsModel = FriendsModel(
+      userImage,
+      addNameController.text,
+      addNumberController.text,
+      desController.text,
+    );
+
+    friendsBox.add(friendsModel).then((value) {
+      userImage == null;
+      addNameController.clear();
+      addNumberController.clear();
+      desController.clear();
+
+      setState(() {});
+    });
   }
 }
