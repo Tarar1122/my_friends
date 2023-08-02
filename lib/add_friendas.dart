@@ -328,7 +328,7 @@ class _HomePageState extends State<HomePage> {
     );
 
     friendsBox.add(friendsModel).then((value) {
-      userImage == null;
+      userImage = null;
       addNameController.clear();
       addNumberController.clear();
       desController.clear();
